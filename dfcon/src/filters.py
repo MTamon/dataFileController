@@ -68,7 +68,7 @@ class Filter(metaclass=ABCMeta):
 
 
 class TiledFilter(Filter):
-    """Compound filter consisting of a fFilter joined by the OR operator."""
+    """Compound filter consisting of a Filter joined by the OR operator."""
 
     def __init__(self, filters: List[Filter]) -> None:
         super().__init__()
@@ -82,7 +82,7 @@ class TiledFilter(Filter):
 
 
 class OverlapedFilter(Filter):
-    """Compound filter consisting of a fFilter joined by the AND operator."""
+    """Compound filter consisting of a Filter joined by the AND operator."""
 
     def __init__(self, filters: List[Filter]) -> None:
         super().__init__()
