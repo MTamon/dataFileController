@@ -27,15 +27,15 @@ class Filter(metaclass=ABCMeta):
             filters = [Filter]
         elif not isinstance(filters, list):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter' or 'List[Filter]', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter' or 'List[Filter]', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
         elif filters == []:
             return TiledFilter(None)
         elif not isinstance(filters[0], Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter' or 'List[Filter]', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter' or 'List[Filter]', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
         return TiledFilter(filters)
 
@@ -54,15 +54,15 @@ class Filter(metaclass=ABCMeta):
             filters = [Filter]
         elif not isinstance(filters, list):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter' or 'List[Filter]', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter' or 'List[Filter]', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
         elif filters == []:
             return OverlapedFilter(None)
         elif not isinstance(filters[0], Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter' or 'List[Filter]', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter' or 'List[Filter]', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
         return OverlapedFilter(filters)
 

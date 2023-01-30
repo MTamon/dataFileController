@@ -2,6 +2,7 @@
 
 import os
 import sys
+import shutil
 
 sys.path.append("../")
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -11,13 +12,16 @@ from package.src.dfcon_filter import FileFilter, DircFilter, Filter
 
 
 if __name__ == "__main__":
-    dirc = Directory(path="test/out/exp1")
+    if os.path.exists("test/out/exp1/ABCD"):
+        shutil.rmtree("test/out/exp1/ABCD")
+
+    dirc = Directory(path="test/out/exp1").build_structure()
 
     print("################# EX1 #################\n")
 
     # example1
     file_filter = FileFilter().include_extention(["py", "txt"])
-    dirc_filter = DircFilter().uncontained_path(["log", "data"])
+    dirc_filter = DircFilter().uncontained_path(["log", "data", ".git"])
     filters = Filter.overlap([file_filter, dirc_filter])
 
     results = dirc.get_file_path(filters=filters, serialize=True)
@@ -43,20 +47,21 @@ if __name__ == "__main__":
     f = open("test/out/exp1/ABCD/exit.py", "w", encoding="utf-8")
     f.close()
 
-    cloned = dirc.clone()
-    dirc.update_member()
+    cloned = dirc.clone(filters=filters)
 
     os.remove("test/out/exp1/ABCD/exit.py")
     os.rmdir("test/out/exp1/ABCD")
 
-    results = dirc.get_file_path(filters=filters, serialize=True)
+    dirc.update_member(filters=filters)
+
+    results = dirc.get_file_path(filters=None, serialize=True)
     for r in results:
-        print(f"collect path: {r}")
+        print(f"collect orgin: {r}")
     print()
 
-    results = cloned.get_file_path(filters=filters, serialize=True)
+    results = cloned.get_file_path(filters=None, serialize=True)
     for r in results:
-        print(f"collect path: {r}")
+        print(f"collect clone: {r}")
     print()
 
     print(

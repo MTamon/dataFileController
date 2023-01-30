@@ -64,10 +64,10 @@ class Directory:
                     return dirc("/".join(path_route[1:]))
             return None
 
-    def build_structure(self):
+    def build_structure(self, filters: Filter = None):
         """Generate & build directory structure"""
 
-        self.update_member(self.empty)
+        self.update_member(filters, self.empty)
 
         return self
 
@@ -92,8 +92,8 @@ class Directory:
 
         if not isinstance(filters, Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
 
         for file in self.file_member:
@@ -177,8 +177,8 @@ class Directory:
             filters = EmpFilter()
         elif not isinstance(filters, Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
 
         if self.terminal:
@@ -244,8 +244,8 @@ class Directory:
             filters = EmpFilter()
         elif not isinstance(filters, Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
 
         clone.file_member = []
@@ -254,8 +254,8 @@ class Directory:
                 clone.file_member.append(file)
         clone.dirc_member = []
         for directory in self.dirc_member:
-            if filters(directory):
-                clone.dirc_member.append(directory.clone())
+            if filters(str(directory)):
+                clone.dirc_member.append(directory.clone(filters))
         clone.terminal = self.terminal
 
         return clone
@@ -292,7 +292,7 @@ class Directory:
         path = os.sep.join(path.split("/"))
 
         mk_num = self.sub_incarnate(path, filters, printer)
-        printer("made " + mk_num + " files.")
+        printer("made " + str(mk_num) + " files.")
 
         return Directory(path=os.path.join(path, self.name)).build_structure()
 
@@ -308,8 +308,8 @@ class Directory:
             filters = EmpFilter()
         elif not isinstance(filters, Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
 
         mk_number = 0
@@ -336,15 +336,26 @@ class Directory:
 
         return target
 
-    def update_member(self, empty: bool = False):
+    def update_member(self, filters: Filter = None, empty: bool = False):
         """update directory member"""
+
+        if filters is None:
+            filters = EmpFilter()
+        elif not isinstance(filters, Filter):
+            raise TypeError(
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
+            )
 
         list_member = os.listdir(self.path)
         dirc_member = []
         file_member = []
         for member in list_member:
-            if os.path.isfile(os.path.join(self.path, member)):
-                file_member.append(os.path.join(self.path, member))
+            fpath = os.path.join(self.path, member)
+            if not filters(fpath):
+                continue
+            if os.path.isfile(fpath) and not empty:
+                file_member.append(fpath)
             else:
                 dirc_member.append(member)
 
@@ -358,10 +369,7 @@ class Directory:
 
         self.terminal = len(dirc_member) == 0
         for dirc in self.dirc_member:
-            dirc.update_member(empty)
-
-        if empty:
-            self.file_member = []
+            dirc.update_member(filters, empty)
 
     def remove_member(
         self,
@@ -441,8 +449,8 @@ class Directory:
             filters = EmpFilter()
         elif not isinstance(filters, Filter):
             raise TypeError(
-                f"The argument 'filters' type must be 'Filter', \
-                    but detect '{type(filters)}'"
+                "The argument 'filters' type must be 'Filter', "
+                + f"but detect '{filters.__class__.__name__}'",
             )
 
         for file in self.file_member:

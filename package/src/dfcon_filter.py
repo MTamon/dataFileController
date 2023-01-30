@@ -21,7 +21,8 @@ class FileFilter(Filter):
     def __call__(self, target: str) -> bool:
         if not isinstance(target, str):
             raise TypeError(
-                f"The argument 'target' type must be 'str', but detect '{type(target)}'"
+                "The argument 'target' type must be 'str', "
+                + f" but detect '{target.__class__.__name__}'",
             )
 
         target = os.sep.join(re.split(r"[\\/]", target))
@@ -72,15 +73,15 @@ class FileFilter(Filter):
             literal = [literal]
         elif not isinstance(literal, list):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         elif literal == []:
             return self
         elif not isinstance(literal[0], str):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
 
         self._contain_literal += literal
@@ -102,15 +103,15 @@ class FileFilter(Filter):
             literal = [literal]
         elif not isinstance(literal, list):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         elif literal == []:
             return self
         elif not isinstance(literal[0], str):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
 
         self._exclude_literal += literal
@@ -132,15 +133,15 @@ class FileFilter(Filter):
             extention = [extention]
         elif not isinstance(extention, list):
             raise TypeError(
-                f"The argument 'extention' type must be 'str' or 'List[str]', \
-                    but detect '{type(extention)}'"
+                "The argument 'extention' type must be 'str' or 'List[str]', "
+                + f"but detect '{extention.__class__.__name__}'",
             )
         elif extention == []:
             return self
         elif not isinstance(extention[0], str):
             raise TypeError(
-                f"The argument 'extention' type must be 'str' or 'List[str]', \
-                    but detect '{type(extention)}'"
+                "The argument 'extention' type must be 'str' or 'List[str]', "
+                + f"but detect '{extention.__class__.__name__}'",
             )
 
         self._extention += extention
@@ -162,15 +163,15 @@ class FileFilter(Filter):
             extention = [extention]
         elif not isinstance(extention, list):
             raise TypeError(
-                f"The argument 'extention' type must be 'str' or 'List[str]', \
-                    but detect '{type(extention)}'"
+                "The argument 'extention' type must be 'str' or 'List[str]', "
+                + f"but detect '{extention.__class__.__name__}'",
             )
         elif extention == []:
             return self
         elif not isinstance(extention[0], str):
             raise TypeError(
-                f"The argument 'extention' type must be 'str' or 'List[str]', \
-                    but detect '{type(extention)}'"
+                "The argument 'extention' type must be 'str' or 'List[str]', "
+                + f"but detect '{extention.__class__.__name__}'",
             )
 
         self._ex_extention += extention
@@ -202,7 +203,7 @@ class DircFilter(Filter):
             target = target.path
         elif not isinstance(target, str):
             raise TypeError(
-                f"The argument 'target' type must be 'str', but detect '{type(target)}'"
+                f"The argument 'target' type must be 'str', but detect '{target.__class__.__name__}'"
             )
 
         target = os.sep.join(re.split(r"[\\/]", target))
@@ -280,15 +281,15 @@ class DircFilter(Filter):
             dirc_name = [dirc_name]
         elif not isinstance(dirc_name, list):
             raise TypeError(
-                f"The argument 'dirc_name' type must be 'str' or 'List[str]', \
-                    but detect '{type(dirc_name)}'"
+                "The argument 'dirc_name' type must be 'str' or 'List[str]', "
+                + f"but detect '{dirc_name.__class__.__name__}'",
             )
         elif dirc_name == []:
             return self
         elif not isinstance(dirc_name[0], str):
             raise TypeError(
-                f"The argument 'dirc_name' type must be 'str' or 'List[str]', \
-                    but detect '{type(dirc_name)}'"
+                "The argument 'dirc_name' type must be 'str' or 'List[str]', "
+                + f"but detect '{dirc_name.__class__.__name__}'",
             )
         self._contain_dirc += dirc_name
 
@@ -311,15 +312,15 @@ class DircFilter(Filter):
             dirc_name = [dirc_name]
         elif not isinstance(dirc_name, list):
             raise TypeError(
-                f"The argument 'dirc_name' type must be 'str' or 'List[str]', \
-                    but detect '{type(dirc_name)}'"
+                "The argument 'dirc_name' type must be 'str' or 'List[str]', "
+                + f"but detect '{dirc_name.__class__.__name__}'",
             )
         elif dirc_name == []:
             return self
         elif not isinstance(dirc_name[0], str):
             raise TypeError(
-                f"The argument 'dirc_name' type must be 'str' or 'List[str]', \
-                    but detect '{type(dirc_name)}'"
+                "The argument 'dirc_name' type must be 'str' or 'List[str]', "
+                + f"but detect '{dirc_name.__class__.__name__}'",
             )
         self._exclude_dirc += dirc_name
 
@@ -342,15 +343,15 @@ class DircFilter(Filter):
             literal = [literal]
         elif not isinstance(literal, list):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         elif literal == []:
             return self
         elif not isinstance(literal[0], str):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         self._contain_literal += literal
 
@@ -373,15 +374,15 @@ class DircFilter(Filter):
             literal = [literal]
         elif not isinstance(literal, list):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         elif literal == []:
             return self
         elif not isinstance(literal[0], str):
             raise TypeError(
-                f"The argument 'literal' type must be 'str' or 'List[str]', \
-                    but detect '{type(literal)}'"
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
             )
         self._exclude_literal += literal
 
