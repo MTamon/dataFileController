@@ -4,7 +4,7 @@ from os import path
 import re
 from setuptools import setup
 
-package_name = "dataFileController"
+package_name = "dfcon"
 
 root_dir = path.abspath(path.dirname(__file__))
 

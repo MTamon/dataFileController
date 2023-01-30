@@ -131,3 +131,6 @@ dmypy.json
 .vscode
 .pypirc
 out/
+
+# for pypi
+dfcon.egg-info/**
