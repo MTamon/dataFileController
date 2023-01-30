@@ -7,8 +7,8 @@ import shutil
 sys.path.append("../")
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from dfcon.src.directory import Directory
-from dfcon.src.dfcon_filter import FileFilter, DircFilter, Filter
+from dfcon.directory import Directory
+from dfcon.path_filter import FileFilter, DircFilter, Filter
 
 
 if __name__ == "__main__":
