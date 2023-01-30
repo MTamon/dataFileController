@@ -49,7 +49,7 @@ with open("README.md", encoding="utf-8") as f:
 
 setup(
     name=package_name,
-    packages=["dfcon", "dfcon.src"],
+    packages=["dfcon"],
     version=version,
     license=license_,
     install_requires=_requirements(),

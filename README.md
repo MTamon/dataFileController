@@ -13,7 +13,7 @@ pip install dfcon
 ### module import ( and bref description )
 ```python
 from dfcon import Directory
-from dfcon.dfcon_filter import DircFilter, FileFilter
+from dfcon.path_filter import DircFilter, FileFilter
 from dfcon.filters import Filter, TiledFilter, OverlapedFilter
 ```
 #### Directory

@@ -17,3 +17,7 @@
 ## [0.0.3] - 2023-01-30
 ### Added
 - Some description added from @MTamon
+
+## [0.0.4] - 2023-01-31
+### Fixed
+- Module import method fixed for module classification from @MTamon
