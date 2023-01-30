@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from setuptools import setup
 from os import path
 import re
+from setuptools import setup
 
 package_name = "dataFileController"
 
