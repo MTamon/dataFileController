@@ -361,6 +361,9 @@ class Directory:
 
         self.destruct()
 
+        file_member = sorted(file_member)
+        dirc_member = sorted(dirc_member)
+
         self.dirc_member = [
             Directory(os.path.join(self.path, dirc_name), empty)
             for dirc_name in dirc_member

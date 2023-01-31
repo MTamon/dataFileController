@@ -21,3 +21,7 @@
 ## [0.0.4] - 2023-01-31
 ### Fixed
 - Module import method fixed for module classification from @MTamon
+
+## [0.0.5] - 2023-01-31
+### Added
+- Supported stability of `Directory`'s `get_file_path()` results from @MTamon
