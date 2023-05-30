@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 from typing import Any, Callable, List, Dict
+from tqdm import tqdm
 
 from .filters import Filter, EmpFilter
 
@@ -472,6 +473,7 @@ class Directory:
         filters: Filter = None,
         printer: Callable[[str], Any] = print,
         override: bool = False,
+        tqdm_progress: bool = False,
     ):
         """copy member files to path (option: with `filters` for criteria)
 
@@ -503,7 +505,12 @@ class Directory:
                 + f"but detect '{filters.__class__.__name__}'",
             )
 
-        for file in self.file_member:
+        if tqdm_progress:
+            loop_iter = tqdm(self.file_member, desc="copying ... ")
+        else:
+            loop_iter = self.file_member
+
+        for file in loop_iter:
             file_path = "/".join(file.split(os.sep))
             file_name = os.path.basename(file_path)
             target_path = "/".join([path, file_name])
@@ -524,8 +531,10 @@ class Directory:
         filters: Filter = None,
         printer: Callable[[str], Any] = print,
         override: bool = False,
+        tqdm_progress: bool = False,
     ):
-        """copy member files in directory & child directorys to path (option: with `filters` for criteria)
+        """copy member files in directory & child directorys to path
+        (option: with `filters` for criteria)
 
         Args:
             path (str):
@@ -550,7 +559,12 @@ class Directory:
 
         files = self.get_file_path(filters, serialize=True)
 
-        for file_path in files:
+        if tqdm_progress:
+            loop_iter = tqdm(files, desc="copying ... ")
+        else:
+            loop_iter = files
+
+        for file_path in loop_iter:
             target_path = os.path.join(path, os.path.basename(file_path))
             if not os.path.isfile(target_path) or override:
                 shutil.copyfile(file_path, target_path)

@@ -49,3 +49,7 @@
 ## [0.0.11] - 2023-05-31
 ### Fixed
 - Fixed Directory.copy_files. (for printer=None)
+
+## [0.0.12] - 2023-05-31
+### Added
+- Supported tqdm for copy-file() & copy-files().
