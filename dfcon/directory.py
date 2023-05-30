@@ -537,6 +537,13 @@ class Directory:
             override (bool, optional):
                 Flag whether or not to overwrite existing files. Defaults to False.
         """
+        if printer is None:
+
+            def no_wark(_):
+                pass
+
+            printer = no_wark
+
         if re.match(r"[\\|/]", path[-1]):
             path = path[:-1]
         path = os.sep.join(re.split(r"[\\|/]", path))

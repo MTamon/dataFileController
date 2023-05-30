@@ -45,3 +45,7 @@
 ## [0.0.10] - 2023-05-31
 ### Fixed
 - Fixed sum bugs. (in Filter.overlap & Filter.tile)
+
+## [0.0.11] - 2023-05-31
+### Fixed
+- Fixed Directory.copy_files. (for printer=None)
