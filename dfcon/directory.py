@@ -272,15 +272,14 @@ class Directory:
 
         Args:
             path (str):
-                target site for incarnation.
+                Target site for incarnation.
             filters (Filter):
                 Criteria for incarnation.
             printer (Callable[[str], Any]):
                 To print log. When `printer=None`, log can't be output.
 
         Returns
-        -------
-        Directory: incarnated directory instance.
+            Directory: incarnated directory instance.
         """
         if printer is None:
 
@@ -373,6 +372,52 @@ class Directory:
         self.terminal = len(dirc_member) == 0
         for dirc in self.dirc_member:
             dirc.update_member(filters, empty)
+
+    def update_dir_name(self, new_dir_name: str):
+        """Update Directory's Name
+
+        Args:
+            new_dir_name (str):
+                New name of directory.
+
+        Returns:
+            Directory: Updated Directory instance.
+        """
+
+        if re.match(r"[\\|/]", self.path[-1]):
+            self.path = self.path[:-1]
+
+        self.name = new_dir_name
+
+        split_path = re.split(r"[\\|/]", self.path)
+        split_path = split_path[:-1].append(self.name)
+        self.path = os.sep.join(split_path)
+
+        for direc in self.dirc_member:
+            direc.sub_update_dir_name(self.path)
+
+        new_file_member = []
+        for file_path in self.file_member:
+            filename = os.path.basename(file_path)
+            new_file_member.append(os.path.join(self.path), filename)
+
+        self.file_member = new_file_member
+
+    def sub_update_dir_name(self, parent_path: str):
+        """Sub function for update_dir_name."""
+        split_path = re.split(r"[\\|/]", parent_path)
+        split_path = split_path.append(self.name)
+        self.path = os.sep.join(split_path)
+
+        for direc in self.dirc_member:
+            direc.sub_update_dir_name(self.path)
+
+        new_file_member = []
+        for file_path in self.file_member:
+            filename = os.path.basename(file_path)
+            new_file_member.append(os.path.join(self.path), filename)
+
+        self.file_member = new_file_member
 
     def remove_member(
         self,
