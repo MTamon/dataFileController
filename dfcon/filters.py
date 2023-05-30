@@ -24,7 +24,7 @@ class Filter(metaclass=ABCMeta):
         """
 
         if isinstance(filters, Filter):
-            pass
+            filters = [filters]
         elif not isinstance(filters, list):
             raise TypeError(
                 "The argument 'filters' type must be 'Filter' or 'List[Filter]', "
@@ -51,7 +51,7 @@ class Filter(metaclass=ABCMeta):
         """
 
         if isinstance(filters, Filter):
-            pass
+            filters = [filters]
         elif not isinstance(filters, list):
             raise TypeError(
                 "The argument 'filters' type must be 'Filter' or 'List[Filter]', "

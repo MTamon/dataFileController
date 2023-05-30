@@ -38,6 +38,10 @@
 ### Added
 - Supported fuction for copying files in hierarchy.
 
-## [0.0.7] - 2023-05-31
+## [0.0.9] - 2023-05-31
+### Fixed
+- Fixed sum bugs. (in Filter.overlap & Filter.tile)
+
+## [0.0.10] - 2023-05-31
 ### Fixed
 - Fixed sum bugs. (in Filter.overlap & Filter.tile)
