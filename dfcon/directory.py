@@ -403,6 +403,8 @@ class Directory:
 
         self.file_member = new_file_member
 
+        return self
+
     def sub_update_dir_name(self, parent_path: str):
         """Sub function for update_dir_name."""
         split_path = re.split(r"[\\|/]", parent_path)
