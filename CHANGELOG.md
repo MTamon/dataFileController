@@ -29,3 +29,7 @@
 ## [0.0.6] - 2023-05-30
 ### Added
 - Supported fuction for change Directory's name.
+
+## [0.0.7] - 2023-05-30
+### Fixed
+- Change update_dir_name() return value: None -> self
