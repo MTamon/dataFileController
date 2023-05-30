@@ -390,7 +390,7 @@ class Directory:
         self.name = new_dir_name
 
         split_path = re.split(r"[\\|/]", self.path)
-        split_path = split_path[:-1].append(self.name)
+        split_path[:-1].append(self.name)
         self.path = os.sep.join(split_path)
 
         for direc in self.dirc_member:
@@ -399,14 +399,14 @@ class Directory:
         new_file_member = []
         for file_path in self.file_member:
             filename = os.path.basename(file_path)
-            new_file_member.append(os.path.join(self.path), filename)
+            new_file_member.append(os.path.join(self.path, filename))
 
         self.file_member = new_file_member
 
     def sub_update_dir_name(self, parent_path: str):
         """Sub function for update_dir_name."""
         split_path = re.split(r"[\\|/]", parent_path)
-        split_path = split_path.append(self.name)
+        split_path.append(self.name)
         self.path = os.sep.join(split_path)
 
         for direc in self.dirc_member:
@@ -415,7 +415,7 @@ class Directory:
         new_file_member = []
         for file_path in self.file_member:
             filename = os.path.basename(file_path)
-            new_file_member.append(os.path.join(self.path), filename)
+            new_file_member.append(os.path.join(self.path, filename))
 
         self.file_member = new_file_member
 

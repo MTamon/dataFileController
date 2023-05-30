@@ -14,6 +14,9 @@ from dfcon.path_filter import FileFilter, DircFilter, Filter
 if __name__ == "__main__":
     if os.path.exists("test/out/exp1/ABCD"):
         shutil.rmtree("test/out/exp1/ABCD")
+    if os.path.exists("test/out/out"):
+        shutil.rmtree("test/out/out")
+    os.mkdir("test/out/out")
 
     dirc = Directory(path="test/out/exp1").build_structure()
 
@@ -64,6 +67,16 @@ if __name__ == "__main__":
         print(f"collect clone: {r}")
     print()
 
+    print(
+        "incarnated:", cloned.incarnate("test/out/out", filters=filters, printer=print)
+    )
+
+    cloned.destruct()
+
+    print("\n################# EX3 #################\n")
+
+    cloned = dirc.clone(filters=filters)
+    cloned.update_dir_name(new_dir_name="exp2")
     print(
         "incarnated:", cloned.incarnate("test/out/out", filters=filters, printer=print)
     )
