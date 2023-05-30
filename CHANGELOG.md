@@ -25,3 +25,7 @@
 ## [0.0.5] - 2023-01-31
 ### Added
 - Supported stability of `Directory`'s `get_file_path()` results from @MTamon
+
+## [0.0.6] - 2023-05-30
+### Added
+- Supported fuction for change Directory's name.
