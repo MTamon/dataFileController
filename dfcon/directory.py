@@ -292,7 +292,8 @@ class Directory:
         path = os.sep.join(path.split("/"))
 
         mk_num = self.sub_incarnate(path, filters, printer)
-        printer("made " + str(mk_num) + " files.")
+        if printer is not None:
+            printer("made " + str(mk_num) + " files.")
 
         return Directory(path=os.path.join(path, self.name)).build_structure()
 
@@ -322,7 +323,8 @@ class Directory:
         self.copy_file(mk_path, filters, printer)
 
         for dirc in self.dirc_member:
-            mk_number += dirc.sub_incarnate(mk_path, filters, printer)
+            if filters(dirc):
+                mk_number += dirc.sub_incarnate(mk_path, filters, printer)
 
         return mk_number
 
@@ -488,13 +490,6 @@ class Directory:
                 Flag whether or not to overwrite existing files. Defaults to False.
         """
 
-        if printer is None:
-
-            def no_wark(_):
-                pass
-
-            printer = no_wark
-
         path = os.sep.join(path.split("/"))
 
         if filters is None:
@@ -518,11 +513,12 @@ class Directory:
             if filters(file):
                 if not os.path.isfile(target_path) or override:
                     shutil.copyfile(file_path, target_path)
-                    if os.path.isfile(target_path) and override:
-                        printer(f"ovrd: {file_path} -> {target_path}")
-                    else:
-                        printer(f"copy: {file_path} -> {target_path}")
-                else:
+                    if printer is not None:
+                        if os.path.isfile(target_path) and override:
+                            printer(f"ovrd: {file_path} -> {target_path}")
+                        else:
+                            printer(f"copy: {file_path} -> {target_path}")
+                elif printer is not None:
                     printer(f"exst: {file_path} -> {target_path}")
 
     def copy_files(
@@ -546,12 +542,6 @@ class Directory:
             override (bool, optional):
                 Flag whether or not to overwrite existing files. Defaults to False.
         """
-        if printer is None:
-
-            def no_wark(_):
-                pass
-
-            printer = no_wark
 
         if re.match(r"[\\|/]", path[-1]):
             path = path[:-1]
@@ -568,9 +558,10 @@ class Directory:
             target_path = os.path.join(path, os.path.basename(file_path))
             if not os.path.isfile(target_path) or override:
                 shutil.copyfile(file_path, target_path)
-                if os.path.isfile(target_path) and override:
-                    printer(f"ovrd: {file_path} -> {target_path}")
-                else:
-                    printer(f"copy: {file_path} -> {target_path}")
-            else:
+                if printer is not None:
+                    if os.path.isfile(target_path) and override:
+                        printer(f"ovrd: {file_path} -> {target_path}")
+                    else:
+                        printer(f"copy: {file_path} -> {target_path}")
+            elif printer is not None:
                 printer(f"exst: {file_path} -> {target_path}")

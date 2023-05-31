@@ -53,3 +53,7 @@
 ## [0.0.12] - 2023-05-31
 ### Added
 - Supported tqdm for copy-file() & copy-files().
+
+## [0.0.13] - 2023-05-31
+### Fixed
+- Fixed Directory.sub_incarnate() (for directory filtering)
