@@ -57,3 +57,7 @@
 ## [0.0.13] - 2023-05-31
 ### Fixed
 - Fixed Directory.sub_incarnate() (for directory filtering)
+
+## [0.0.14] - 2023-06-01
+### Fixed
+- Fixed requirements.txt (tqdm)
