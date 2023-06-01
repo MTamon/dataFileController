@@ -6,7 +6,7 @@ from .directory import Directory
 # from .src import path_filter
 
 __copyright__ = "Copyright (C) 2022 Tamon Mikawa"
-__version__ = "0.0.15"
+__version__ = "0.0.16"
 __license__ = "MIT License"
 __author__ = "Tamon Mikawa"
 __author_email__ = "mtamon.engineering@gmail.com"

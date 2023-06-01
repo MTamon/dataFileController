@@ -19,6 +19,8 @@ class FileFilter(Filter):
         self._ex_extention = []
 
     def __call__(self, target: str) -> bool:
+        if isinstance(target, Directory):
+            return True
         if not isinstance(target, str):
             raise TypeError(
                 "The argument 'target' type must be 'str', "

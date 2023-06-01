@@ -65,3 +65,7 @@
 ## [0.0.15] - 2023-06-01
 ### Fixed
 - Fixed DircFilter bug. (about valiable 'target')
+
+## [0.0.16] - 2023-06-01
+### Fixed
+- Fixed FileFilter bug. (When \_\_call\_\_() called, target=Directory)
