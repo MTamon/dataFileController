@@ -179,7 +179,6 @@ class FileFilter(Filter):
         return self
 
     def __str__(self) -> str:
-
         cond_str = "FileFilter\n"
         for key, value in vars(self).items():
             if value:
@@ -205,6 +204,9 @@ class DircFilter(Filter):
             raise TypeError(
                 f"The argument 'target' type must be 'str', but detect '{target.__class__.__name__}'"
             )
+        if isinstance(target, str):
+            if os.path.isfile(target):
+                target = os.path.dirname(target)
 
         target = os.sep.join(re.split(r"[\\/]", target))
 
@@ -216,7 +218,7 @@ class DircFilter(Filter):
                     return False
 
         if self._contain_dirc:
-            dircs = os.path.dirname(target).split(os.sep)
+            dircs = target.split(os.sep)
             exist = False
             for target_dirc in self._contain_dirc:
                 if target_dirc in dircs:
@@ -226,13 +228,13 @@ class DircFilter(Filter):
                 return False
 
         if self._exclude_dirc:
-            dircs = os.path.dirname(target).split(os.sep)
+            dircs = target.split(os.sep)
             for target_dirc in self._exclude_dirc:
                 if target_dirc in dircs:
                     return False
 
         if self._contain_literal:
-            dircs = os.path.dirname(target).split(os.sep)
+            dircs = target.split(os.sep)
             exist = False
             for target_literal in self._contain_literal:
                 for dirc in dircs:
@@ -243,7 +245,7 @@ class DircFilter(Filter):
                 return False
 
         if self._exclude_literal:
-            dircs = os.path.dirname(target).split(os.sep)
+            dircs = target.split(os.sep)
             for target_literal in self._exclude_literal:
                 for dirc in dircs:
                     if target_literal in dirc:
@@ -389,7 +391,6 @@ class DircFilter(Filter):
         return self
 
     def __str__(self) -> str:
-
         cond_str = "DircFilter\n"
         for key, value in vars(self).items():
             if value:

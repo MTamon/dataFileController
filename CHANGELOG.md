@@ -61,3 +61,7 @@
 ## [0.0.14] - 2023-06-01
 ### Fixed
 - Fixed requirements.txt (tqdm)
+
+## [0.0.15] - 2023-06-01
+### Fixed
+- Fixed DircFilter bug. (about valiable 'target')
