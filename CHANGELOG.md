@@ -69,3 +69,7 @@
 ## [0.0.16] - 2023-06-01
 ### Fixed
 - Fixed FileFilter bug. (When \_\_call\_\_() called, target=Directory)
+
+## [0.0.17] - 2023-10-30
+### Fixed
+- Fixed for pylance type check.
