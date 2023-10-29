@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import re
 import shutil
-from typing import Any, Callable, List, Dict
+from typing import Any, Callable, List, Dict, Optional, Union
 from tqdm import tqdm
 
 from .filters import Filter, EmpFilter
@@ -44,7 +44,7 @@ class Directory:
         else:
             return __o == self.name
 
-    def __call__(self, path: str) -> Directory:
+    def __call__(self, path: str) -> Optional[Directory]:
         """Search the members of the hierarchy below this instance itself"""
         path_route = re.split(r"[\\|/]", path)
         if path_route[0] == ".":
@@ -65,7 +65,7 @@ class Directory:
                     return dirc("/".join(path_route[1:]))
             return None
 
-    def build_structure(self, filters: Filter = None):
+    def build_structure(self, filters: Optional[Filter] = None):
         """Generate & build directory structure"""
 
         self.update_member(filters, self.empty)
@@ -73,7 +73,7 @@ class Directory:
         return self
 
     def get_file_path(
-        self, filters: Filter = None, serialize: bool = False
+        self, filters: Optional[Filter] = None, serialize: bool = False
     ) -> List[str]:
         """Get the path to the file matching the condition.
 
@@ -110,7 +110,7 @@ class Directory:
 
         return file_list
 
-    def get_grouped_path_list(self, key: Callable[[str], str]) -> Dict[List[str]]:
+    def get_grouped_path_list(self, key: Callable[[str], str]) -> Dict[str, List[str]]:
         """Get grouped file path list with 'key'.
 
         Args:
@@ -134,8 +134,8 @@ class Directory:
         return grouped
 
     def get_terminal_instances(
-        self, filters: Filter = None, serialize: bool = False
-    ) -> List[Directory]:
+        self, filters: Optional[Filter] = None, serialize: bool = False
+    ) -> Union[List[Directory], List[Any]]:
         """Get the terminal Directory instance list while preserving file structure
         or Get the terminal Directory instance serialized list.
 
@@ -154,10 +154,10 @@ class Directory:
 
     def get_instances(
         self,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         serialize: bool = False,
         terminal_only: bool = False,
-    ) -> List[Directory]:
+    ) -> Union[List[Directory], List[Any]]:
         """Get the Directory instance list while preserving file structure
         or Get Directory instance serialized list.
 
@@ -201,7 +201,7 @@ class Directory:
 
         if serialize or not terminal_only:
             return dir_list
-        elif terminal_only:
+        else:
             return [dir_list]
 
     def get_specify_instance(self, path: str) -> Directory | None:
@@ -232,7 +232,7 @@ class Directory:
         """get absolute path which is sep by '/'"""
         return "/".join(self.abspath.split(os.sep))
 
-    def clone(self, filters: Filter = None) -> Directory:
+    def clone(self, filters: Optional[Filter] = None) -> Directory:
         """clone Directory instance structure (option: with condition
 
         Returns:
@@ -264,7 +264,7 @@ class Directory:
     def incarnate(
         self,
         path: str,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         printer: Callable[[str], Any] = print,
     ) -> Directory:
         """
@@ -300,7 +300,7 @@ class Directory:
     def sub_incarnate(
         self,
         path: str,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         printer: Callable[[str], Any] = print,
     ) -> int:
         """Sub function for incarnate."""
@@ -338,7 +338,7 @@ class Directory:
 
         return target
 
-    def update_member(self, filters: Filter = None, empty: bool = False):
+    def update_member(self, filters: Optional[Filter] = None, empty: bool = False):
         """update directory member"""
 
         if filters is None:
@@ -426,7 +426,7 @@ class Directory:
 
     def remove_member(
         self,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         printer: Callable[[str], Any] = print,
     ) -> int:
         """Remove file members
@@ -472,7 +472,7 @@ class Directory:
     def copy_file(
         self,
         path: str,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         printer: Callable[[str], Any] = print,
         override: bool = False,
         tqdm_progress: bool = False,
@@ -524,7 +524,7 @@ class Directory:
     def copy_files(
         self,
         path: str,
-        filters: Filter = None,
+        filters: Optional[Filter] = None,
         printer: Callable[[str], Any] = print,
         override: bool = False,
         tqdm_progress: bool = False,

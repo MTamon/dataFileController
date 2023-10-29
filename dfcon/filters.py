@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 from abc import ABCMeta, abstractmethod
-from typing import List
+from typing import List, Optional
 
 
 class Filter(metaclass=ABCMeta):
@@ -70,9 +70,9 @@ class Filter(metaclass=ABCMeta):
 class TiledFilter(Filter):
     """Compound filter consisting of a Filter joined by the OR operator."""
 
-    def __init__(self, filters: List[Filter]) -> None:
+    def __init__(self, filters: Optional[List[Filter]]) -> None:
         super().__init__()
-        self.filters = filters
+        self.filters = filters if filters is not None else []
 
     def __call__(self, target: object) -> bool:
         for _f in self.filters:
@@ -84,9 +84,9 @@ class TiledFilter(Filter):
 class OverlapedFilter(Filter):
     """Compound filter consisting of a Filter joined by the AND operator."""
 
-    def __init__(self, filters: List[Filter]) -> None:
+    def __init__(self, filters: Optional[List[Filter]]) -> None:
         super().__init__()
-        self.filters = filters
+        self.filters = filters if filters is not None else []
 
     def __call__(self, target: object) -> bool:
         for _f in self.filters:
