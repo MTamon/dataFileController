@@ -356,7 +356,9 @@ class Directory:
             fpath = os.path.join(self.path, member)
             if not filters(fpath):
                 continue
-            if os.path.isfile(fpath) and not empty:
+            if os.path.isfile(fpath):
+                if empty:
+                    continue
                 file_member.append(fpath)
             else:
                 dirc_member.append(member)

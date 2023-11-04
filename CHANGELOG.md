@@ -32,7 +32,7 @@
 
 ## [0.0.7] - 2023-05-30
 ### Fixed
-- Change update_dir_name() return value: None -> self
+- Change `update_dir_name()` return value: None -> self
 
 ## [0.0.8] - 2023-05-31
 ### Added
@@ -48,15 +48,15 @@
 
 ## [0.0.11] - 2023-05-31
 ### Fixed
-- Fixed Directory.copy_files. (for printer=None)
+- Fixed `Directory.copy_files`. (for printer=None)
 
 ## [0.0.12] - 2023-05-31
 ### Added
-- Supported tqdm for copy-file() & copy-files().
+- Supported tqdm for `copy_file()` & `copy_files()`.
 
 ## [0.0.13] - 2023-05-31
 ### Fixed
-- Fixed Directory.sub_incarnate() (for directory filtering)
+- Fixed `Directory.sub_incarnate()` (for directory filtering)
 
 ## [0.0.14] - 2023-06-01
 ### Fixed
@@ -68,8 +68,16 @@
 
 ## [0.0.16] - 2023-06-01
 ### Fixed
-- Fixed FileFilter bug. (When \_\_call\_\_() called, target=Directory)
+- Fixed FileFilter bug. (When `__call__()` called, target=Directory)
 
 ## [0.0.17] - 2023-10-30
 ### Fixed
 - Fixed for pylance type check.
+
+## [0.0.18] - 2023-11-05
+### Added
+- suport operator '&' @ filter
+
+## [0.0.19] - 2023-11-05
+### Fixed
+- Fixed for Directory motion when `emp=True`

@@ -8,7 +8,7 @@ from .path_filter import FileFilter, DircFilter
 # from .src import path_filter
 
 __copyright__ = "Copyright (C) 2022 Tamon Mikawa"
-__version__ = "0.0.17"
+__version__ = "0.0.19"
 __license__ = "MIT License"
 __author__ = "Tamon Mikawa"
 __author_email__ = "mtamon.engineering@gmail.com"

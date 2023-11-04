@@ -66,6 +66,12 @@ class Filter(metaclass=ABCMeta):
             )
         return OverlapedFilter(filters)
 
+    def __or__(self, other: Filter) -> TiledFilter:
+        return TiledFilter([self, other])
+
+    def __and__(self, other: Filter) -> OverlapedFilter:
+        return OverlapedFilter([self, other])
+
 
 class TiledFilter(Filter):
     """Compound filter consisting of a Filter joined by the OR operator."""
