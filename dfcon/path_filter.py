@@ -5,7 +5,8 @@ import os
 import re
 from typing import List
 
-from .filters import Filter
+from cmpfilter import Filter
+
 from .directory import Directory
 
 

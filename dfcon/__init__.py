@@ -1,17 +1,22 @@
 """Initialize published package."""
 
 from .directory import Directory
-from .filters import Filter, EmpFilter
 from .path_filter import FileFilter, DircFilter
 
-# from .src import filters
-# from .src import path_filter
+############## EDIT THESE INFORMATION ###############
+AUTHOR = "Tamon Mikawa"
+EMAIL = "mtamon.engineering@gmail.com"
+YEAR = "2023"
+GIT_URL = "https://github.com/MTamon/dataFileController.git"
+VERSION = "0.1.0"
+LICENCE = "MIT License"
+#####################################################
 
-__copyright__ = "Copyright (C) 2022 Tamon Mikawa"
-__version__ = "0.0.19"
-__license__ = "MIT License"
-__author__ = "Tamon Mikawa"
-__author_email__ = "mtamon.engineering@gmail.com"
-__url__ = "https://github.com/MTamon/dataFileController.git"
+__copyright__ = f"Copyright (C) {YEAR} {AUTHOR}"
+__version__ = VERSION
+__license__ = LICENCE
+__author__ = AUTHOR
+__author_email__ = EMAIL
+__url__ = GIT_URL
 
-__all__ = ["path_filter", "directory", "filters"]
+__all__ = ["path_filter", "directory"]

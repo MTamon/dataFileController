@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from os import path
-import re
 from setuptools import setup
+
+from dfcon import VERSION, LICENCE, AUTHOR, EMAIL, GIT_URL
 
 package_name = "dfcon"
 
@@ -27,21 +28,11 @@ def _test_requirements():
     ]
 
 
-with open(path.join(root_dir, package_name, "__init__.py"), encoding="utf-8") as f:
-    init_text = f.read()
-    version = re.search(r"__version__\s*=\s*[\'\"](.+?)[\'\"]", init_text).group(1)
-    license_ = re.search(r"__license__\s*=\s*[\'\"](.+?)[\'\"]", init_text).group(1)
-    author = re.search(r"__author__\s*=\s*[\'\"](.+?)[\'\"]", init_text).group(1)
-    author_email = re.search(
-        r"__author_email__\s*=\s*[\'\"](.+?)[\'\"]", init_text
-    ).group(1)
-    url = re.search(r"__url__\s*=\s*[\'\"](.+?)[\'\"]", init_text).group(1)
-
-assert version
-assert license_
-assert author
-assert author_email
-assert url
+assert VERSION
+assert LICENCE
+assert AUTHOR
+assert EMAIL
+assert GIT_URL
 
 with open("README.md", encoding="utf-8") as f:
     long_description = f.read()
@@ -50,13 +41,13 @@ with open("README.md", encoding="utf-8") as f:
 setup(
     name=package_name,
     packages=["dfcon"],
-    version=version,
-    license=license_,
+    version=VERSION,
+    license=LICENCE,
     install_requires=_requirements(),
     tests_require=_test_requirements(),
-    author=author,
-    author_email=author_email,
-    url=url,
+    author=AUTHOR,
+    author_email=EMAIL,
+    url=GIT_URL,
     description="To make access to the database easier.",
     long_description=long_description,
     long_description_content_type="text/markdown",

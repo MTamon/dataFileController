@@ -8,7 +8,7 @@ import shutil
 from typing import Any, Callable, List, Dict, Optional, Union
 from tqdm import tqdm
 
-from .filters import Filter, EmpFilter
+from cmpfilter import Filter, EmpFilter
 
 
 class Directory:

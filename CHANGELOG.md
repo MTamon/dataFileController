@@ -81,3 +81,8 @@
 ## [0.0.19] - 2023-11-05
 ### Fixed
 - Fixed for Directory motion when `emp=True`
+
+## [0.1.0] - 2023-11-29
+### Add
+- `filters` independents from me as `cmpfilter`.
+- and `pip install cmpfilter` 
