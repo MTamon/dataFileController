@@ -137,12 +137,16 @@ class Directory:
         name: Optional[str] = None,
         filters: Optional[Union[Filter, List[Filter]]] = None,
         printer: Optional[Callable[[str], Any]] = None,
+        empty: bool = False,
     ) -> Directory:
         """incarnate directory instance
 
         Args:
             path (str): path of directory
+            name (Optional[str], optional): name of directory. Defaults to None.
             filters (Optional[Union[Filter, List[Filter]]], optional): Filter for directory path. Defaults to None.
+            printer (Optional[Callable[[str], Any]], optional): log-printer function. Defaults to None.
+            empty (bool, optional): If True, the directory will be empty. Defaults to False.
 
         Returns:
             Directory: directory instance
@@ -181,7 +185,7 @@ class Directory:
             for f in files:
                 fpath = os.path.join(cur_dir, f)
                 new_path = transformer(fpath)
-                if filters(fpath):
+                if filters(fpath) and not empty:
                     if os.path.exists(new_path):
                         printer(f"skip: {new_path}")
                         continue

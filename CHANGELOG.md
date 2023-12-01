@@ -90,3 +90,7 @@
 ## [0.2.0] - 2023-12-01
 ### Fixed
 - change directory.py for speed up.
+
+## [0.2.1] - 2023-12-01
+### Add
+- Add empty argment in incarnate() to output empty directory for making new output site.

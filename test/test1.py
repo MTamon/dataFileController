@@ -47,3 +47,4 @@ if __name__ == "__main__":
 
     # example2
     dirc.incarnate(path="test/out/out", name="res", filters=filters)
+    dirc.incarnate(path="test/out/out", name="res2", filters=filters, empty=True)
