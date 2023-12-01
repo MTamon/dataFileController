@@ -86,3 +86,7 @@
 ### Add
 - `filters` independents from me as `cmpfilter`.
 - and `pip install cmpfilter` 
+
+## [0.2.0] - 2023-12-01
+### Fixed
+- change directory.py for speed up.
