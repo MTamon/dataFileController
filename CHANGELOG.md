@@ -94,3 +94,7 @@
 ## [0.2.1] - 2023-12-01
 ### Add
 - Add empty argment in incarnate() to output empty directory for making new output site.
+
+## [0.2.2] - 2023-12-01
+### Add
+- new README.md for version 0.2.1 ~.
