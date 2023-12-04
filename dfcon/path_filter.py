@@ -18,6 +18,8 @@ class FileFilter(Filter):
         self._exclude_literal = []
         self._extention = []
         self._ex_extention = []
+        self._start_with = []
+        self._end_with = []
 
     def __call__(self, target: str) -> bool:
         if isinstance(target, Directory):
@@ -59,7 +61,45 @@ class FileFilter(Filter):
                 if literal in os.path.basename(target):
                     return False
 
+        if self._start_with:
+            for literal in self._start_with:
+                if not os.path.basename(target).startswith(literal):
+                    return False
+
+        if self._end_with:
+            for literal in self._end_with:
+                ext = os.path.splitext(target)[-1]
+                if not os.path.basename(target).endswith(literal + ext):
+                    return False
+
         return True
+
+    def chake_form_args(self, literal: List[str] | str) -> List[str]:
+        """Check the type of the argument.
+
+        Args:
+            literal (List[str] | str): The argument to check.
+
+        Raises:
+            TypeError: If the argument is not a string or a list of strings.
+        """
+
+        if isinstance(literal, str):
+            return [literal]
+        elif not isinstance(literal, list):
+            raise TypeError(
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
+            )
+        elif literal == []:
+            return literal
+        elif not isinstance(literal[0], str):
+            raise TypeError(
+                "The argument 'literal' type must be 'str' or 'List[str]', "
+                + f"but detect '{literal.__class__.__name__}'",
+            )
+        else:
+            return literal
 
     def contained(self, literal: List[str] | str) -> FileFilter:
         """set criteria, get file path which contain `literal`.
@@ -72,20 +112,7 @@ class FileFilter(Filter):
             FileFilter: Callable instance that filters by specified criteria.
         """
 
-        if isinstance(literal, str):
-            literal = [literal]
-        elif not isinstance(literal, list):
-            raise TypeError(
-                "The argument 'literal' type must be 'str' or 'List[str]', "
-                + f"but detect '{literal.__class__.__name__}'",
-            )
-        elif literal == []:
-            return self
-        elif not isinstance(literal[0], str):
-            raise TypeError(
-                "The argument 'literal' type must be 'str' or 'List[str]', "
-                + f"but detect '{literal.__class__.__name__}'",
-            )
+        literal = self.chake_form_args(literal)
 
         self._contain_literal += literal
 
@@ -102,20 +129,7 @@ class FileFilter(Filter):
             FileFilter: Callable instance that filters by specified criteria.
         """
 
-        if isinstance(literal, str):
-            literal = [literal]
-        elif not isinstance(literal, list):
-            raise TypeError(
-                "The argument 'literal' type must be 'str' or 'List[str]', "
-                + f"but detect '{literal.__class__.__name__}'",
-            )
-        elif literal == []:
-            return self
-        elif not isinstance(literal[0], str):
-            raise TypeError(
-                "The argument 'literal' type must be 'str' or 'List[str]', "
-                + f"but detect '{literal.__class__.__name__}'",
-            )
+        literal = self.chake_form_args(literal)
 
         self._exclude_literal += literal
 
@@ -132,20 +146,7 @@ class FileFilter(Filter):
             FileFilter: Callable instance that filters by specified criteria.
         """
 
-        if isinstance(extention, str):
-            extention = [extention]
-        elif not isinstance(extention, list):
-            raise TypeError(
-                "The argument 'extention' type must be 'str' or 'List[str]', "
-                + f"but detect '{extention.__class__.__name__}'",
-            )
-        elif extention == []:
-            return self
-        elif not isinstance(extention[0], str):
-            raise TypeError(
-                "The argument 'extention' type must be 'str' or 'List[str]', "
-                + f"but detect '{extention.__class__.__name__}'",
-            )
+        extention = self.chake_form_args(extention)
 
         self._extention += extention
 
@@ -162,22 +163,43 @@ class FileFilter(Filter):
             FileFilter: Callable instance that filters by specified criteria.
         """
 
-        if isinstance(extention, str):
-            extention = [extention]
-        elif not isinstance(extention, list):
-            raise TypeError(
-                "The argument 'extention' type must be 'str' or 'List[str]', "
-                + f"but detect '{extention.__class__.__name__}'",
-            )
-        elif extention == []:
-            return self
-        elif not isinstance(extention[0], str):
-            raise TypeError(
-                "The argument 'extention' type must be 'str' or 'List[str]', "
-                + f"but detect '{extention.__class__.__name__}'",
-            )
+        extention = self.chake_form_args(extention)
 
         self._ex_extention += extention
+
+        return self
+
+    def start_with(self, literal: List[str] | str) -> FileFilter:
+        """set criteria, get file path which start with `literal`.
+
+        Args:
+            literal (List[str] | str): Criteria for filtering files
+            that start with `literal` in the filename.
+
+        Returns:
+            FileFilter: Callable instance that filters by specified criteria.
+        """
+
+        literal = self.chake_form_args(literal)
+
+        self._start_with += literal
+
+        return self
+
+    def end_with(self, literal: List[str] | str) -> FileFilter:
+        """set criteria, get file path which end with `literal`.
+
+        Args:
+            literal (List[str] | str): Criteria for filtering files
+            that end with `literal` in the filename.
+
+        Returns:
+            FileFilter: Callable instance that filters by specified criteria.
+        """
+
+        literal = self.chake_form_args(literal)
+
+        self._end_with += literal
 
         return self
 

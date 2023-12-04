@@ -98,3 +98,7 @@
 ## [0.2.2] - 2023-12-01
 ### Add
 - new README.md for version 0.2.1 ~.
+
+## [0.2.3] - 2023-12-04
+### Add
+- add file-filter function start_with() & end_with()
