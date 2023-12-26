@@ -232,14 +232,15 @@ class DircFilter(Filter):
         if isinstance(target, str):
             if os.path.isfile(target):
                 target = os.path.dirname(target)
+        if os.path.isfile(target):
+            target = os.path.dirname(target)
 
         target = os.sep.join(re.split(r"[\\/]", target))
 
         if self._only_terminal_dirc:
-            dirs_path = os.path.dirname(target)
-            mems = os.listdir(dirs_path)
+            mems = os.listdir(target)
             for mem in mems:
-                if os.path.isdir(os.path.join(dirs_path, mem)):
+                if os.path.isdir(os.path.join(target, mem)):
                     return False
 
         if self._contain_dirc:

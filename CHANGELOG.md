@@ -102,3 +102,7 @@
 ## [0.2.3] - 2023-12-04
 ### Add
 - add file-filter function start_with() & end_with()
+
+## [0.2.4] - 2023-12-27
+### Fix
+- DircFilter._only_terminal_dirc judgement code.
