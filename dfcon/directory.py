@@ -108,7 +108,7 @@ class Directory:
         for cur_dir, dirs, _ in os.walk(self.path):
             if terminal_only and dirs != []:
                 continue
-            dir_path.extend(cur_dir)
+            dir_path.append(cur_dir)
 
         return [Directory(path) for path in dir_path]
 

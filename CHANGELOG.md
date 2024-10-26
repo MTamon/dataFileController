@@ -110,3 +110,7 @@
 ## [0.2.5] - 2024-10-27
 ### Fix
 - Dirctory.get_instance() code
+
+## [0.2.6] - 2024-10-27
+### Fix
+- Dirctory.get_instance() code
