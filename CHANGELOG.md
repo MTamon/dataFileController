@@ -106,3 +106,7 @@
 ## [0.2.4] - 2023-12-27
 ### Fix
 - DircFilter._only_terminal_dirc judgement code.
+
+## [0.2.5] - 2024-10-27
+### Fix
+- Dirctory.get_instance() code

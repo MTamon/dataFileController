@@ -20,9 +20,7 @@ class Directory:
         if path is None:
             return
         if path == "":
-            raise ValueError(
-                "'path' must not be empty. If you want to use the current directory, use '.' or './'."
-            )
+            raise ValueError("'path' must not be empty. If you want to use the current directory, use '.' or './'.")
 
         self.name = ""
         self.path = ""
@@ -49,14 +47,10 @@ class Directory:
 
     def __eq__(self, __value: Union[str, Directory]) -> bool:
         if not isinstance(__value, (str, Directory)):
-            raise TypeError(
-                f"'{type(__value).__name__}' object is not allowed for comparison."
-            )
+            raise TypeError(f"'{type(__value).__name__}' object is not allowed for comparison.")
         return os.path.abspath(self.path) == os.path.abspath(str(__value))
 
-    def check_form_filter(
-        self, filters: Optional[Union[Filter, List[Filter]]] = None
-    ) -> Filter:
+    def check_form_filter(self, filters: Optional[Union[Filter, List[Filter]]] = None) -> Filter:
         if filters is None:
             filters = EmpFilter()
         elif isinstance(filters, list) and isinstance(filters[0], Filter):
@@ -64,14 +58,10 @@ class Directory:
         elif isinstance(filters, Filter):
             pass
         else:
-            raise TypeError(
-                f"'{type(filters).__name__}' object is not allowed for comparison."
-            )
+            raise TypeError(f"'{type(filters).__name__}' object is not allowed for comparison.")
         return filters
 
-    def get_file_path(
-        self, filters: Optional[Union[Filter, List[Filter]]] = None
-    ) -> Generator[str, None, None]:
+    def get_file_path(self, filters: Optional[Union[Filter, List[Filter]]] = None) -> Generator[str, None, None]:
         """Get the path of the file in the directory.
 
         Args:
@@ -88,9 +78,7 @@ class Directory:
                 if filters(fpath):
                     yield fpath
 
-    def get_terminal_instances(
-        self, filters: Optional[Union[Filter, List[Filter]]] = None
-    ) -> List[Directory]:
+    def get_terminal_instances(self, filters: Optional[Union[Filter, List[Filter]]] = None) -> List[Directory]:
         """Get the terminal directory instances in the directory.
 
         Args:
@@ -117,13 +105,10 @@ class Directory:
         filters = self.check_form_filter(filters)
 
         dir_path = []
-        for cur_dir, dirs, files in os.walk(self.path):
-            dirs = [
-                os.path.join(cur_dir, d)
-                for d in dirs
-                if filters(os.path.join(cur_dir, d)) and not (files and terminal_only)
-            ]
-            dir_path += dirs
+        for cur_dir, dirs, _ in os.walk(self.path):
+            if terminal_only and dirs != []:
+                continue
+            dir_path.extend(cur_dir)
 
         return [Directory(path) for path in dir_path]
 
