@@ -114,3 +114,7 @@
 ## [0.2.6] - 2024-10-27
 ### Fix
 - Dirctory.get_instance() code
+
+## [0.2.7] - 2024-11-02
+### Fix
+- Dirctory.get_instance() code: activate filters

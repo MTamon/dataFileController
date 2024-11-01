@@ -110,7 +110,7 @@ class Directory:
                 continue
             dir_path.append(cur_dir)
 
-        return [Directory(path) for path in dir_path]
+        return [Directory(path) for path in dir_path if filters(path)]
 
     def get_abspath(self) -> str:
         """get absolute path which is sep by '/'"""
