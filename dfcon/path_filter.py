@@ -26,8 +26,7 @@ class FileFilter(Filter):
             return True
         if not isinstance(target, str):
             raise TypeError(
-                "The argument 'target' type must be 'str', "
-                + f" but detect '{target.__class__.__name__}'",
+                "The argument 'target' type must be 'str', " + f" but detect '{target.__class__.__name__}'",
             )
 
         target = os.sep.join(re.split(r"[\\/]", target))
@@ -63,14 +62,20 @@ class FileFilter(Filter):
 
         if self._start_with:
             for literal in self._start_with:
-                if not os.path.basename(target).startswith(literal):
-                    return False
+                if os.path.basename(target).startswith(literal):
+                    exist = True
+                    break
+            if not exist:
+                return False
 
         if self._end_with:
             for literal in self._end_with:
                 ext = os.path.splitext(target)[-1]
-                if not os.path.basename(target).endswith(literal + ext):
-                    return False
+                if os.path.basename(target).endswith(literal + ext):
+                    exist = True
+                    break
+            if not exist:
+                return False
 
         return True
 
@@ -102,7 +107,8 @@ class FileFilter(Filter):
             return literal
 
     def contained(self, literal: List[str] | str) -> FileFilter:
-        """set criteria, get file path which contain `literal`.
+        """set criteria, get file name which contain `literal`.
+        The criteria behaves like the logical sum.
 
         Args:
             literal (List[str] | str): Criteria for filtering files
@@ -119,7 +125,8 @@ class FileFilter(Filter):
         return self
 
     def uncontained(self, literal: List[str] | str) -> FileFilter:
-        """set criteria, get file path which dose not contain `literal`.
+        """set criteria, get file name which dose not contain `literal`.
+        This criteria behaves like the negative logical sum.
 
         Args:
             literal (List[str] | str): Criteria for filtering files
@@ -137,6 +144,7 @@ class FileFilter(Filter):
 
     def include_extention(self, extention: List[str] | str) -> FileFilter:
         """Specify the including file extension.
+        The criteria behaves like the logical sum.
 
         Args:
             extention (List[str] | str): Criteria for filtering files
@@ -154,6 +162,7 @@ class FileFilter(Filter):
 
     def exclude_extention(self, extention: List[str] | str) -> FileFilter:
         """Specify the excluding file extension.
+        This criteria behaves like the negative logical sum.
 
         Args:
             extention (List[str] | str): Criteria for filtering files
@@ -170,7 +179,8 @@ class FileFilter(Filter):
         return self
 
     def start_with(self, literal: List[str] | str) -> FileFilter:
-        """set criteria, get file path which start with `literal`.
+        """set criteria, get file name which start with `literal`.
+        The criteria behaves like the logical sum.
 
         Args:
             literal (List[str] | str): Criteria for filtering files
@@ -187,7 +197,8 @@ class FileFilter(Filter):
         return self
 
     def end_with(self, literal: List[str] | str) -> FileFilter:
-        """set criteria, get file path which end with `literal`.
+        """set criteria, get file name which end with `literal`.
+        This criteria behaves like the negative logical sum.
 
         Args:
             literal (List[str] | str): Criteria for filtering files
@@ -226,9 +237,7 @@ class DircFilter(Filter):
         if isinstance(target, Directory):
             target = target.path
         elif not isinstance(target, str):
-            raise TypeError(
-                f"The argument 'target' type must be 'str', but detect '{target.__class__.__name__}'"
-            )
+            raise TypeError(f"The argument 'target' type must be 'str', but detect '{target.__class__.__name__}'")
         if isinstance(target, str):
             if os.path.isfile(target):
                 target = os.path.dirname(target)
