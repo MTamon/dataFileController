@@ -118,3 +118,7 @@
 ## [0.2.7] - 2024-11-02
 ### Fix
 - Dirctory.get_instance() code: activate filters
+
+## [0.2.8] - 2025-01-24
+### Fix
+- filefilter: more kind summary & end_with/start_with() for behaving like the logical sum.
