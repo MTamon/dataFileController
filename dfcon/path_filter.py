@@ -61,6 +61,7 @@ class FileFilter(Filter):
                     return False
 
         if self._start_with:
+            exist = False
             for literal in self._start_with:
                 if os.path.basename(target).startswith(literal):
                     exist = True
@@ -69,6 +70,7 @@ class FileFilter(Filter):
                 return False
 
         if self._end_with:
+            exist = False
             for literal in self._end_with:
                 ext = os.path.splitext(target)[-1]
                 if os.path.basename(target).endswith(literal + ext):
