@@ -78,7 +78,9 @@ class Directory:
                 if filters(fpath):
                     yield fpath
 
-    def get_terminal_instances(self, filters: Optional[Union[Filter, List[Filter]]] = None) -> List[Directory]:
+    def get_terminal_instances(
+        self, filters: Optional[Union[Filter, List[Filter]]] = None, return_generator: bool = False
+    ) -> Union[List[Directory], Generator[Directory, None, None]]:
         """Get the terminal directory instances in the directory.
 
         Args:
@@ -87,13 +89,28 @@ class Directory:
         Returns:
             List[Directory]: directory instance list
         """
-        return self.get_instances(filters, terminal_only=True)
+        return self.get_instances(filters, terminal_only=True, child_only=False, return_generator=return_generator)
+
+    def get_child_instances(
+            self, filters: Optional[Union[Filter, List[Filter]]] = None, return_generator: bool = False
+        ) -> Union[List[Directory], Generator[Directory, None, None]]:
+        """Get the child directory instances in the directory.
+
+        Args:
+            filters (Optional[Union[Filter, List[Filter]]], optional): Filter for directory path. Defaults to None.
+
+        Returns:
+            List[Directory]: directory instance list
+        """
+        return self.get_instances(filters, terminal_only=False, child_only=True, return_generator=return_generator)
 
     def get_instances(
         self,
         filters: Optional[Union[Filter, List[Filter]]] = None,
         terminal_only: bool = False,
-    ) -> List[Directory]:
+        child_only: bool = False,
+        return_generator: bool = False
+    ) -> Union[List[Directory], Generator[Directory, None, None]]:
         """Get the directory instances in the directory.
 
         Args:
@@ -108,9 +125,14 @@ class Directory:
         for cur_dir, dirs, _ in os.walk(self.path):
             if terminal_only and dirs != []:
                 continue
+            if child_only and os.path.abspath(cur_dir) != os.path.abspath(self.path):
+                continue
             dir_path.append(cur_dir)
 
-        return [Directory(path) for path in dir_path if filters(path)]
+        if return_generator:
+            yield from (Directory(path) for path in dir_path if filters(path))
+        else:
+            return [Directory(path) for path in dir_path if filters(path)]
 
     def get_abspath(self) -> str:
         """get absolute path which is sep by '/'"""

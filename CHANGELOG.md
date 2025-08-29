@@ -126,3 +126,7 @@
 ## [0.2.9] - 2025/01/24
 ### Fix
 - fix bug in path_filter variable 'exist'
+
+## [0.2.10] - 2025/08/29
+### Add
+- add get_child_instance() and return_generator flag in get_instance.
