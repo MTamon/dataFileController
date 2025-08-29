@@ -129,4 +129,8 @@
 
 ## [0.2.10] - 2025/08/29
 ### Add
-- add get_child_instance() and return_generator flag in get_instance.
+- add get_child_instances() and return_generator flag in get_instances.
+
+## [0.2.11] - 2025/08/30
+### Fix
+- fix bug in get_instances() about child_only flag

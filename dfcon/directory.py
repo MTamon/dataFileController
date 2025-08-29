@@ -125,7 +125,7 @@ class Directory:
         for cur_dir, dirs, _ in os.walk(self.path):
             if terminal_only and dirs != []:
                 continue
-            if child_only and os.path.abspath(cur_dir) != os.path.abspath(self.path):
+            if child_only and os.path.abspath(os.path.split(cur_dir)[0]) != os.path.abspath(self.path):
                 continue
             dir_path.append(cur_dir)
 
