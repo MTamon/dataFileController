@@ -134,3 +134,5 @@ out/
 
 # for pypi
 dfcon.egg-info/**
+
+command_list_for_pypi.txt
