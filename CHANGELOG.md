@@ -134,3 +134,7 @@
 ## [0.2.11] - 2025/08/30
 ### Fix
 - fix bug in get_instances() about child_only flag
+
+## [0.2.12] - 2025/11/08
+### Fixed
+- Fixed requirements.txt (remove tqdm)
