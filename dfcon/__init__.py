@@ -8,7 +8,7 @@ AUTHOR = "Tamon Mikawa"
 EMAIL = "mtamon.engineering@gmail.com"
 YEAR = "2023"
 GIT_URL = "https://github.com/MTamon/dataFileController.git"
-VERSION = "0.2.12"
+VERSION = "0.3.0"
 LICENCE = "MIT License"
 #####################################################
 

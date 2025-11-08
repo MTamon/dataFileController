@@ -138,3 +138,7 @@
 ## [0.2.12] - 2025/11/08
 ### Fixed
 - Fixed requirements.txt (remove tqdm)
+
+## [0.3.0] - 2025/11/08
+### Fixed
+- Fixed get_instance (this function return generator absolutely)
